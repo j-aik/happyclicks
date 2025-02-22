@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <form action="" method="POST">
+     {% csrf_token %}
+    <h2>Enter Details</h2>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="n" placeholder="Enter your name" required>
+
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="s" required>
+
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="e" required>
+
+     <input type="checkbox" id="agree" name="a" value="no">
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

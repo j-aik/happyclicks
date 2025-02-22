@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for i in f %}
+
+<h1>{{ i.name }}</h1>
+<h1>{{ i.date_time }}</h1>
+
+  {% if i.is_true == True %}
+   <input type="checkbox" name="option" value="true" checked>
+
+  {% else %}
+    <input type="checkbox" name="option" value="false">
+     <center>
+         <button class="create-btn" style="width:70px;height:70px;"><a class="btn btn-danger" href="{% url 'todoapp1:changetodo' i.id %}">checkboxtrue</a></button>
+  </center>
+  {% endif %}
+
+{% endfor %}
+
+ <center>
+         <button class="create-btn" style="width:70px;height:70px;"><a class="btn btn-danger" href="{% url 'todoapp1:createtodo' %}">1st page</a></button>
+  </center>
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<h3>EDIT HTML</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{b.as_table}}
+    </table>
+    <input type="submit">
+</form>
+</body>
+</html>

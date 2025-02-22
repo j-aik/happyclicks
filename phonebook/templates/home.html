@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Number Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .phone-number {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .actions button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .save-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+{% if k %}
+  {% for i in k %}
+    <div class="container">
+      <h2 style="color:black;">{{ i.phone_number }}</h2>
+      <div id="viewMode">
+        <p class="phone-number" style="color:black;">{{ i.name }}</p>
+        <div class="actions">
+          <a class="btn btn-danger" href="{% url 'bookapp:phonebookedit' i.id %}">Edit</a>
+          <a class="btn btn-danger" href="{% url 'bookapp:uudelete' i.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No contacts found.</p>
+{% endif %}
+
+    <br>
+     <center>
+         <button class="create-btn" style="width:70px;height:70px;"><a class="btn btn-danger" href="{% url 'bookapp:phonebookadd' %}">Add</a></button>
+     </center>
+     <center>
+         <button class="create-btn" style="width:70px;height:70px;"><a class="btn btn-danger" href="{% url 'todoapp1:createtodo' %}">todoapp</a></button>
+     </center>
+    <script>
+        const phoneNumberEl = document.getElementById('phoneNumber');
+        const phoneInput = document.getElementById('phoneInput');
+        const viewMode = document.getElementById('viewMode');
+        const editMode = document.getElementById('editMode');
+
+        function editPhoneNumber() {
+            editMode.classList.remove('hidden');
+            viewMode.classList.add('hidden');
+            phoneInput.value = phoneNumberEl.textContent;
+        }
+
+        function savePhoneNumber() {
+            const newNumber = phoneInput.value.trim();
+            if (newNumber) {
+                phoneNumberEl.textContent = newNumber;
+                cancelEdit();
+            } else {
+                alert('Please enter a valid phone number.');
+            }
+        }
+
+        function cancelEdit() {
+            editMode.classList.add('hidden');
+            viewMode.classList.remove('hidden');
+        }
+
+         function confirmDelete(id) {
+        alert(`Delete confirmed for ID: ${id}`);
+        cancelDelete();
+        // Add actual delete logic here (e.g., send request to server)
+         }
+        }
+    </script>
+</body>
+</html>

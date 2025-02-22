@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+
+
+  <main style="max-width:500px;width:100%;height:100%;max-height:500px;background-color:yellow;">
+
+    <br>
+     {% for k in related_tasks %}
+      <h1>{{ k.name }}</h1>
+       <h1>{{ k.date_time }}</h1>
+        {% if k.is_true == false %}
+    <input type="checkbox" id="agree" name="agree" value="no" data-url="{% url 'todoapp:checkbox_handler' k.id %}">
+    {% else %}
+    <input type="checkbox" id="agree" name="agree" value="yes" data-url="{% url 'todoapp:checkbox_handler' k.id %}">
+    {% endif %}
+      {% endfor %}
+  </main>
+
+
+  <center>
+  <center>
+         <button class="create-btn" style="width:70px;height:70px;"><a class="btn btn-danger" href="{% url 'todoapp:addtodo' l2 %}">addtask</a></button>
+  </center>
+    <script>
+  // Add a change event listener to the checkbox
+  document.addEventListener('DOMContentLoaded', function() {
+  const checkbox = document.getElementById('agree');
+
+  if (checkbox) {
+    checkbox.addEventListener('change', function() {
+      fetch(checkbox.dataset.url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),  // CSRF token for Django security
+        },
+        body: JSON.stringify({ checked: this.checked })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(`Server response: ${data.message}`);
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  }
+
+  // Function to get CSRF token from cookies
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+});
+</script>
+</body>
+</html>

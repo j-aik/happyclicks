@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Number Viewer & Create Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .phone-number {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .actions button, .create-link {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .edit-btn { background-color: #4CAF50; color: white; }
+        .delete-btn { background-color: #f44336; color: white; }
+        .save-btn { background-color: #2196F3; color: white; }
+        .create-link { background-color: #FF9800; color: white; margin-top: 20px; }
+        .hidden { display: none; }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form {
+            margin-top: 20px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="createForm" style="margin-top: 30px;" method="POST" enctype="multipart/form-data" action="{% url 'bookapp:phonebookadded' %}">
+            {% csrf_token %}
+            <h3>Create Book</h3>
+            <label for="bookName">Book Name:</label>
+            <input type="text" id="bookName"  placeholder="Enter book name" required name="T">
+
+            <label for="phoneNumberInput">Phone Number:</label>
+            <input type="text" id="phoneNumberInput" name="A" placeholder="Enter phone number" required>
+
+            <button type="submit" class="submit-btn">Create</button>
+        </form>
+    </div>
+
+    <script>
+
+    </script>
+</body>
+</html>
