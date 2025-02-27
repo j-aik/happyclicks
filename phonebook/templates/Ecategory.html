@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="background-color:red;">
+    {% for i in categories  %}
+          <P></P>
+       <p><a href="{% url 'ecommerceapp:showallproduct' i.id %}" class="icon-link">{{ i.name }}</a></p>
+    {% endfor %}
+</div>
+<p>last 5 orders</p>
+<div style="background-color:red;">
+    {% for i in g %}
+       <p>{{ i.status }}</p>
+    {% endfor %}
+</div>
+<p>total amount spend by user</p>
+<div style="background-color:red;">
+
+       <p>{{j}}</p>
+
+</div>
+</body>
+</html>

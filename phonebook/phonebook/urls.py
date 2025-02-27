@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bookapp.urls')),
     path('app3', include('todoapp1.urls')),
+    path('app4',include('ecommerce.urls'))
 
 ]
 if settings.DEBUG:urlpatterns += static(settings.MEDIA_URL,

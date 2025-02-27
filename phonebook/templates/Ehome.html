@@ -1,10 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Main Page</title>
 </head>
 <body>
-$END$
+<div style="background-color:red;">
+    {% for i in u  %}
+          <P><a href="{% url 'ecommerceapp:toshowcategory' i.username %}" class="icon-link">{{ i.username }}</a></P>
+
+            <button class="icon-button">
+                <a href="{% url 'ecommerceapp:delete' i.id %}" class="icon-link">deleteUser</a>
+            </button>
+            <button class="icon-button">
+                <a href="{% url 'ecommerceapp:update' i.id %}" class="icon-link">Update</a>
+            </button>
+
+    {% endfor %}
+</div>
+ <button class="icon-button">
+                <a href="{% url 'ecommerceapp:Register' %}" class="icon-link">Register user</a>
+</button>
+<h1>Products</h1>
+{% if p %}
+<div style="background-color:yellow;">
+    {% for i in p  %}
+          <P></P>
+            <a href="" class="icon-link">{{i.name}}</a>
+            <p>{{i.price}}</p>
+            <p>{{i.stock}}</p>
+            <p>{{i.category}}</p>
+            <button class="icon-button">
+         <a href="{% url 'ecommerceapp:productdelete' i.id %}" class="icon-link">productdelete</a>
+             </button>
+            <button class="icon-button">
+                <a href="{% url 'ecommerceapp:productupdate' i.id %}" class="icon-link">Update</a>
+            </button>
+    {% endfor %}
+</div>
+{% endif %}
+<button class="icon-button">
+                <a href="{% url 'ecommerceapp:prodcreate' %}" class="icon-link">productcreate</a>
+ </button>
+
+<h1>orders</h1>
+{% if w %}
+<div style="background-color:yellow;">
+    {% for i in w  %}
+          <P></P>
+            <a href="" class="icon-link">{{i.user.username}}</a>
+            <p>{{i.total_price}}</p>
+            <p>{{i.status}}</p>
+
+    {% endfor %}
+</div>
+{% endif %}
+<button class="icon-button">
+                <a href="{% url 'ecommerceapp:rodcreate' %}" class="icon-link">productcreate</a>
+ </button>
+
+
+<h1>USERS WHO HAVE MADE 1000  dolars</h1>
+<div class="mb-3">
+      <form method="POST" action="{% url 'ecommerceapp:atleastorder' %}">
+            {% csrf_token %}
+           <label for="id_stock" class="form-label">Orders price</label>
+           <input type="number" name="s" id="id_stock" class="form-control" placeholder="Enter stock" value="0" required>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+       </form>
+ </div>
+
+<h1>USERS WHO HAVE MADE at least one order</h1>
+<div class="mb-3">
+      <form method="POST" action="{% url 'ecommerceapp:atleastorderuser' %}">
+            {% csrf_token %}
+           <label for="id_stock" class="form-label">Orders users</label>
+           <input type="number" name="s" id="id_stock" class="form-control" placeholder="Enter stock" value="0" required>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+       </form>
+ </div>
+
+<h1>Find all orders placed in the last 7 days</h1>
+<div class="mb-3">
+
+<div style="background-color:yellow;">
+    {% for i in n %}
+          <P>{{ i }}</P>
+    {% endfor %}
+</div>
+
+ </div>
+
+<h1>Calculate the total sales amount for all orders.</h1>
+<div class="mb-3">
+
+<div style="background-color:yellow;">
+
+          <P>{{ h }}</P>
+
+</div>
+
+ </div>
+
+<h1>Count the number of orders per user</h1>
+<div class="mb-3">
+
+<div style="background-color:yellow;">
+
+    {% for key, value in h1.items %}
+          <P >{{ key }}</P> <span>{{ value }}</span>
+    {% endfor %}
+
+</div>
+
+ </div>
+
+<h1> top 5 best selling product</h1>
+<div style="background-color:yellow;">
+
+    {% for key, value in sorted_h2.items %}
+          <P >{{ key }}</P> <span>{{ value }}</span>
+    {% endfor %}
+
+</div>
+<h1>Get the total number of products sold in the last month</h1>
+<div style="background-color:yellow;">
+
+    <p>{{ records }}</p>
+
+</div>
+
 </body>
 </html>

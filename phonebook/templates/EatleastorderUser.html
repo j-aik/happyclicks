@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if n %}
+<div style="background-color:yellow;">
+    {% for i in n  %}
+          <P></P>
+            <a href="" class="icon-link">{{i.user.username}}</a>
+            <p>{{i.total_price}}</p>
+            <p>{{i.status}}</p>
+
+    {% endfor %}
+</div>
+{% endif %}
+</body>
+</html>

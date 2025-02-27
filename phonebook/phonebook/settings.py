@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'ecommerce',
     'bookapp',
     'todoapp1',
     'django.contrib.admin',
@@ -70,6 +71,8 @@ TEMPLATES = [
     },
 ]
 
+
+AUTH_USER_MODEL ="ecommerce.CustomUser"
 WSGI_APPLICATION = 'phonebook.wsgi.application'
 
 

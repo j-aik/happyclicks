@@ -3,7 +3,15 @@ from django.contrib import admin
 # Register your models here.
 
 
-from todoapp1.models import todo
 
 
-admin.site.register(todo)
+
+from ecommerce.models import  Category, Product, Order, OrderItem, Payment
+
+# Register all models
+
+admin.site.register(Category)
+admin.site.register(Product)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(Payment)

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<div style="background-color:red;">
+    {% for i in p  %}
+          <p>{{ i.name }}</p>
+          <p>{{ i.price }}</p>
+          <p>{{ i.stock }}</p>
+    {% endfor %}
+</div>
 </body>
 </html>
