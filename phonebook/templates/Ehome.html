@@ -55,7 +55,7 @@
 </div>
 {% endif %}
 <button class="icon-button">
-                <a href="{% url 'ecommerceapp:rodcreate' %}" class="icon-link">productcreate</a>
+                <a href="{% url 'ecommerceapp:rodcreate' %}" class="icon-link">ordercreate</a>
  </button>
 
 
@@ -130,6 +130,20 @@
     <p>{{ records }}</p>
 
 </div>
+<h1>Implement a query that fetches all orders along with the total quantity of items in each
+order.</h1>
+   {% for key in d %}
+          <span>{{ key.order.user.username }}</span><P >{{ key.quantity }}</P>
+          <p></p>
+    {% endfor %}
 
+<h1>highest paying customer</h1>
+{% for key,value in top_users %}
+  <span>{{ key }}</span><P >{{ value }}</P>
+          <p></p>
+    {% endfor %}
+
+<h1>Get the monthly revenue for the last 6 months using Django ORM</h1>
+  <p>{{ hy }}</p>
 </body>
 </html>
