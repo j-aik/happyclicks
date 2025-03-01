@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-
+from decimal import Decimal
 from datetime import date,timedelta
 from django.shortcuts import render
 from django.shortcuts import render, redirect
@@ -27,9 +27,11 @@ def Register(request):
 
 
 def home(request):
+    hy = 0
     w = Order.objects.all()
     h = 0
     n = []
+    t = {}
     h1 = {}
     h2 = {}
     records = 0
@@ -38,18 +40,28 @@ def home(request):
     seven_days_ago = today - timedelta(days=7)
     r  = Order.objects.all()
     thirty_days_ago = today - timedelta(days=30)
+    six_months_ago = today - timedelta(days=180)
     for i in r:
         h = h + i.total_price
-        if  i.user.username in h1:
+        if i.user.username in h1:
             h1[i.user.username] = h1[i.user.username] + 1
+
         else:
             h1[i.user.username] = 1
+    for i in r:
+        if  i.user.username in t:
+            t[i.user.username] =   t[i.user.username] + i.total_price
+
+        else:
+            t[i.user.username] = i.total_price
 
         if i.user.created_at.date()  > seven_days_ago:
                print(Order)
                if i.user.username:
                   n.append(i.user.username)
-    print(n)
+        if i.user.created_at.date()  > thirty_days_ago:
+               hy = hy + i.total_price
+
     u = CustomUser.objects.all()
     # try:
     u1 = Product.objects.all()
@@ -59,14 +71,17 @@ def home(request):
           else:
               h2[i.name] = 1
     print("h2",h2)
+    top_users = sorted(t.items(), key=lambda x: x[1], reverse=True)[:3]
+    print(top_users,"kkk")
     sorted_h2 = dict(sorted(h2.items(), key=lambda item: item[1], reverse=True)[:5])
     records = Product.objects.filter(category__created_at__range=(thirty_days_ago, today)).count()
     print("records",records)
     print(sorted_h2,"sorted_h2")
+    d = OrderItem.objects.all()
     # except:
     #     print("it is comming here ")
     #     u1 = ""
-    return render(request, 'Ehome.html',{'u':u,'p':u1,'n':n,'h':h,'h1':h1,"sorted_h2":sorted_h2,"records":records,"w":w})  # Pass data to template
+    return render(request, 'Ehome.html',{'u':u,'p':u1,'n':n,'h':h,'h1':h1,"sorted_h2":sorted_h2,"records":records,"w":w,"d":d,"top_users":top_users,"hy":hy})  # Pass data to template
 
 
 def login(request):
@@ -178,7 +193,8 @@ def atleastorderuser(request):
     if request.method == "POST":
       username1 = request.POST.get('s')
       print(username1)
-      f = Order.objects.all()
+      # f = Order.objects.all()
+      f =  Order.objects.prefetch_related('user').all()
       for i in f:
           if i.user.username in j:
               j[i.user.username] = j[i.user.username] + 1
@@ -202,13 +218,23 @@ def rodcreate(request):
         user_id = request.POST.get('user')
         total_price = request.POST.get('total_price')
         status = request.POST.get('status')
-
+        p = request.POST.get('p')
+        q = request.POST.get('q')
         # Create and save the order
-        Order.objects.create(
+        e = Product.objects.filter(name=p).first()
+        j=Order.objects.create(
             user_id=user_id,
             total_price=total_price,
             status=status
         )
+        d = OrderItem.objects.create(
+            order= j,
+            product = e,
+            quantity = q,
+            subtotal_price =  int(q)*Decimal(j.total_price)
+
+        )
+        d.save()
         return home(request)
     status_choices = dict(Order.STATUS_CHOICES)
     context = {
