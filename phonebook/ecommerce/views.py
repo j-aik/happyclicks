@@ -59,22 +59,28 @@ def home(request):
                print(Order)
                if i.user.username:
                   n.append(i.user.username)
-        if i.user.created_at.date()  > thirty_days_ago:
+        if i.user.created_at.date()  > six_months_ago:
                hy = hy + i.total_price
+
 
     u = CustomUser.objects.all()
     # try:
+    u99 = OrderItem.objects.all()
     u1 = Product.objects.all()
-    for i in u1:
-          if i.name in h2:
-              h2[i.name] = h2[i.name] + 1
+    for i in u99:
+          if i.product.name in h2:
+              h2[i.product.name] = h2[i.product.name] + 1
           else:
-              h2[i.name] = 1
+              h2[i.product.name] = 1
+          if i.product.category.created_at.date()  > thirty_days_ago:
+              print(i.product.category.created_at.date(),thirty_days_ago)
+              records=records+1
+
     print("h2",h2)
     top_users = sorted(t.items(), key=lambda x: x[1], reverse=True)[:3]
     print(top_users,"kkk")
     sorted_h2 = dict(sorted(h2.items(), key=lambda item: item[1], reverse=True)[:5])
-    records = Product.objects.filter(category__created_at__range=(thirty_days_ago, today)).count()
+
     print("records",records)
     print(sorted_h2,"sorted_h2")
     d = OrderItem.objects.all()
